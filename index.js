@@ -30,7 +30,9 @@ const bodyParser = require("body-parser");
 //const fs = require("fs");
 //const path = require('path');
 const cors = require('cors'); 
+var Auth= require('./authRoute.js');
 
+var Justify= require('./justifyRoute.js');
 const mongoose  = require("mongoose"); 
 
 
@@ -44,8 +46,10 @@ const mongoose  = require("mongoose");
 // setting up my app
 const app = express();
 
-var Auth= require('./authRoute.js');
+app.use(bodyParser.text());
 app.use('/api/', Auth);
+app.use('/api/', Justify);
+
 // connecting to mongodb :)
 mongoose.set('useCreateIndex', true);
 mongoose.connect("mongodb://localhost/tictac", { useNewUrlParser: true }) ; 
