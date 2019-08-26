@@ -1,45 +1,14 @@
-/*var express = require("express");
-var app = express();
-var MongoClient = require("mongodb").MongoClient;
 
-app.get("/", function(req, res) {
-  res.send("Hello World!");
-});
-
-app.get("/users", function() {
-  MongoClient.connect("mongodb://localhost:27017/test", function(err, db) {
-    if (err) next
-    db
-      .collection("users")
-      .find()
-      .toArray(function(err, result) {
-        if (err) throw err;
-
-        res.json(result)
-      });
-  });
-});
-app.listen(3000,function(){
-    console.log('Express app start on port 3000')
-});
-
-*/
 
 const express = require('express');
 const bodyParser = require("body-parser"); 
-//const fs = require("fs");
-//const path = require('path');
 const cors = require('cors'); 
-var Auth= require('./authRoute.js');
 const path = require('path');
 
-var Justify= require('./justifyRoute.js');
+var Auth= require('./routes/authRoute.js');
+var Justify= require('./routes/justifyRoute.js');
 var cookieParser = require('cookie-parser');
 const mongoose  = require("mongoose"); 
-
-
-
-
 
 
 // setting up my app
@@ -63,7 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.use("/", require("./userRoute")); 
+//app.use("/", require("./userRoute")); 
 
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname+'/index.html'))

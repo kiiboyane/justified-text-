@@ -31,8 +31,10 @@
     }; 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
            console.log("user created"); 
+           window.location.href = "/justify"; 
+          }
         if (xmlHttp.status == 500)
             message.innerHTML = "The username already exists!" ;  
     }
@@ -55,7 +57,7 @@
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
            console.log("loged in"); 
            console.log(xmlHttp.responseText); 
-           window.location.href = "justify"; 
+           window.location.href = "/justify"; 
           
         }
         if (xmlHttp.status == 500)
