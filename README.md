@@ -1,2 +1,2 @@
 # justified-text-
-REST API that justify texts, with authentication using token jwt  
+REST API that justifies texts, with jwt authentication  
