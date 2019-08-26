@@ -9,7 +9,6 @@
         xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
            console.log("user checked");
-           console.log(xmlHttp.responseText); 
         }
         if (xmlHttp.status == 500)
              window.location.href = "/";      
@@ -44,7 +43,6 @@
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
-           console.log(xmlHttp.responseText);
            output.value =  xmlHttp.responseText ;
           
         }

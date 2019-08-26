@@ -17,9 +17,13 @@
 
 </body>	
 <script>
+  function notEmpty(string) {
+    return !(string.length === 0 || !string.trim());
+ }
  function register(){
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
+    if(!notEmpty(password) && !notEmpty(username) ) return ; 
     let message = document.getElementById('message');
     let  data = {
         "username" : username, 
@@ -40,6 +44,7 @@
  function login(){
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
+    if(!notEmpty(password) && !notEmpty(username) ) return ; 
     let message = document.getElementById('message');
     let  data = {
         "username" : username, 
