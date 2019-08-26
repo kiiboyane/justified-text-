@@ -34,7 +34,6 @@ router.post('/signup', function(req, res) {
 
 router.get('/getuser', VerifyToken,function(req, res) {
   let token = req.cookies['x-access-token'];
-  console.log(token); 
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
   
   jwt.verify(token, config.secret, function(err, decoded) {

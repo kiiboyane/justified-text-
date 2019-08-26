@@ -9,10 +9,13 @@
         xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
            console.log("user checked");
+       }
+             
+        if ( xmlHttp.status == 401 || xmlHttp.status == 500 || xmlHttp.status == 404 || xmlHttp.status == 403 ){
+              window.location.href = "/";      
         }
-        if (xmlHttp.status == 500)
-             window.location.href = "/";      
-        }
+    
+    }
     xmlHttp.open("GET", "/api/getuser", true); // true for asynchronous 
     xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHttp.send();
