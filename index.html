@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accueil</title>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body style = "background-color: #E8E8E8">
+<div>
+    <h2> Log in to Justify your text </h2>
+    <input type="string" id="username" placeholder="Username"> <br/>
+    <input type="password" id="password" placeholder="Password"> <br/>
+    <button onclick="register()"> Register </button>
+    <button onclick="login()"> Log in </button><br/>
+    <p id="message" style="color : red"></p>
+</div>
+
+</body>	
+<script>
+ function register(){
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let message = document.getElementById('message');
+    let  data = {
+        "username" : username, 
+        "password" : password 
+    }; 
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+           console.log("user created"); 
+        if (xmlHttp.status == 500)
+            message.innerHTML = "The username already exists!" ;  
+    }
+    xmlHttp.open("POST", "/api/signup", true); // true for asynchronous 
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify(data));
+
+ }
+ function login(){
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let message = document.getElementById('message');
+    let  data = {
+        "username" : username, 
+        "password" : password 
+    }; 
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+           console.log("loged in"); 
+           console.log(xmlHttp.responseText); 
+           window.location.href = "justify"; 
+          
+        }
+        if (xmlHttp.status == 500)
+            message.innerHTML = "Wrong Credentials !"   
+    }
+    xmlHttp.open("POST", "/api/signin", true); // true for asynchronous 
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify(data));
+ }
+
+</script>
+</html>

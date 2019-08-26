@@ -1,10 +1,7 @@
-
-
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
+const cookieParser = require('cookie-parser');
 var User = require('./user.js');
 
 var jwt = require('jsonwebtoken');
@@ -13,6 +10,8 @@ var config = require('./config.js');
 var VerifyToken = require('./verifyToken');
 
 
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 router.post('/signup', function(req, res) {
   
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
@@ -20,22 +19,22 @@ router.post('/signup', function(req, res) {
   User.create({
     name : req.body.name,
     username : req.body.username,
-    password : hashedPassword
+    password : hashedPassword, 
+    lastuse : "-", 
+    member : false , 
+    cosuming : 0 
   },
   function (err, user) {
     if (err) return res.status(500).send("There was a problem registering the user.")
-    // create a token
-    var token = jwt.sign({ id: user._id }, config.secret, {
-      expiresIn: 86400 // expires in 24 hours
-    });
-    res.status(200).send({ auth: true, token: token });
+    res.status(200).send({ auth: true });
   }); 
 });
 
 
 
 router.get('/getuser', VerifyToken,function(req, res) {
-  var token = req.headers['x-access-token'];
+  let token = req.cookies['x-access-token'];
+  console.log(token); 
   if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
   
   jwt.verify(token, config.secret, function(err, decoded) {
@@ -63,8 +62,8 @@ router.post('/signin', function(req, res) {
     var token = jwt.sign({ id: user._id }, config.secret, {
       expiresIn: 86400 // expires in 24 hours
     });
-    
-    res.status(200).send({ auth: true, token: token });
+    res.setHeader('Set-Cookie', 'x-access-token='+token+'; HttpOnly');
+    res.status(200).send({ auth: true });
   });
   
 });

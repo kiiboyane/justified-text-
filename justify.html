@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accueil</title>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	<link rel="stylesheet" href="style.css">
+    <script>
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+           console.log("user checked");
+           console.log(xmlHttp.responseText); 
+        }
+        if (xmlHttp.status == 500)
+             window.location.href = "/";      
+        }
+    xmlHttp.open("GET", "/api/getuser", true); // true for asynchronous 
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send();
+    </script>
+</head>
+<body style = "background-color: #E8E8E8">
+<div>
+    <h2>  Justify your text </h2>
+    <div> 
+        <textarea  id="input"  placeholder="Place your text here "></textarea>
+    </div>
+    <br/> 
+    <button onclick="justify()"> Justify </button>
+    <br/>
+    <div>   
+        <textarea  id="output"  style="display: block;" disabled=""></textarea>
+    </div>
+</div>
+
+</div>
+
+</body>	
+<script>
+ function justify(){
+    let input = document.getElementById('input').value;
+    let output = document.getElementById('output');
+    let  data = input;  
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200){ 
+           console.log(xmlHttp.responseText);
+           output.value =  xmlHttp.responseText ;
+          
+        }
+        if (xmlHttp.status == 500)
+            console.log("Error from the server ");
+    }
+    xmlHttp.open("POST", "/api/justify", true); // true for asynchronous 
+    xmlHttp.setRequestHeader("Content-Type", "text/plain");
+    xmlHttp.send(data);
+ }
+</script>
+</html>
