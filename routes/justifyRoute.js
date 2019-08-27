@@ -39,18 +39,8 @@ router.post('/justify' ,VerifyToken, function(req , res , next){
 		 		   res.status(200).send(txt);
 	          });
            }else{
-             if(characters==null){
-             // remove this 
-             User.findByIdAndUpdate({_id : user._id }, { lastuse : today ,  consuming : characters}).then(function(){
-             // check if the user surpassed 80000 per day 
-             //let txt = justifytext.justifytext(req.body); 
-             //res.status(200).send(txt);
-                 res.status(404).send(""); 
-             res.status(402).send("Payment Required") ;   
-             }); 
-             }
-             // remove this 
-              // res.status(402).send("Payment Required") ;		
+             if(characters==null) res.status(404).send("Not found") ;
+             else res.status(402).send("Payment Required") ;   	
            } 
       }
 

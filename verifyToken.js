@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 var config = require('./config');
 
+  
 function verifyToken(req, res, next) {
   let token = req.cookies["x-access-token"];
   if (!token)
