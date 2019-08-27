@@ -42,8 +42,9 @@ app.get('/justify', function(req, res) {
 });
 
 let server = app.listen(process.env.PORT || 3000 , function (){
-  console.log("Hello")
+  console.log("Good morning ! Ready for service")
 });  
 
-
+// for testing 
+module.exports = server ; 
 
